@@ -31,7 +31,7 @@ void setup() {
     digitalWrite(CONFIG_BLINK_GPIO, false);
     Serial.begin(115200);
 
-    WiFi.onEvent(onWifiDisconnect, SYSTEM_EVENT_STA_DISCONNECTED);
+    WiFi.onEvent(onWifiDisconnect, ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
     while (WiFi.status() != WL_CONNECTED) {
         delay(1000);
@@ -51,7 +51,7 @@ void loop() {
     bridge.setToken(BRIDGE_TOKEN);
     bool succeeded;
     static bool initializedBrightness = false;
-    static BulbState state = bridge.getState(1, &succeeded);
+    static BulbState state = bridge.getState(TOGGLE_BUILB, &succeeded);
     if(!succeeded){
         printf("Failed to fetch data from the bridge are ip and token correct?,\n");
     }
